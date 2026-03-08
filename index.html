@@ -656,7 +656,52 @@
     .why-left h2 { font-size: 1.5rem; }
     .policy-content { padding: 40px 24px; }
     .policy-section h2 { font-size: 0.9rem; }
+    .tk-date-grid { grid-template-columns: 1fr !important; }
   }
+
+  /* ── TOOLKIT PAGE ────────────────────────────────────────── */
+  .tk-opt {
+    background: transparent; border: 1px solid rgba(197,165,90,0.25);
+    color: rgba(255,255,255,0.7); padding: 8px 18px;
+    font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif; cursor: pointer;
+    border-radius: 2px; transition: all 0.3s;
+  }
+  .tk-opt:hover { border-color: var(--gold); color: var(--gold); background: rgba(197,165,90,0.06); }
+  .tk-portal-card {
+    display: block; padding: 20px 24px;
+    border: 1px solid rgba(197,165,90,0.1);
+    text-decoration: none; color: inherit;
+    transition: all 0.3s; border-radius: 2px;
+  }
+  .tk-portal-card:hover { border-color: rgba(197,165,90,0.3); background: rgba(197,165,90,0.04); }
+  .tk-portal-card strong { font-family: 'Cinzel', serif; font-size: 0.8rem; color: var(--white); letter-spacing: 1px; display: block; margin-bottom: 6px; }
+  .tk-portal-card span { font-size: 0.68rem; color: var(--slate); line-height: 1.7; }
+  .tk-gloss-term { padding: 14px 18px; border: 1px solid rgba(197,165,90,0.08); border-radius: 2px; }
+  .tk-gloss-term strong { font-family: 'Cinzel', serif; font-size: 0.72rem; color: var(--gold); display: block; margin-bottom: 4px; letter-spacing: 1px; }
+  .tk-gloss-term span { font-size: 0.68rem; color: var(--slate); line-height: 1.7; }
+  .tk-milestone { display: flex; align-items: baseline; gap: 12px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .tk-milestone:last-child { border-bottom: none; }
+  .tk-milestone-label { font-size: 0.68rem; color: rgba(255,255,255,0.5); flex: 1; }
+  .tk-milestone-date { font-size: 0.68rem; color: var(--gold); font-family: 'Cinzel', serif; white-space: nowrap; }
+  .tk-milestone-flag { font-size: 0.58rem; color: #e07070; margin-left: 6px; }
+
+
+  /* ── PA23 NOTICES ────────────────────────────────────────── */
+  .tk-nf-active { border-color: var(--gold) !important; color: var(--gold) !important; background: rgba(197,165,90,0.08) !important; }
+  .tk-notice-card {
+    padding: 20px 22px; border: 1px solid rgba(197,165,90,0.1);
+    border-radius: 2px; transition: border-color 0.3s;
+  }
+  .tk-notice-card:hover { border-color: rgba(197,165,90,0.3); }
+  .tk-notice-ref { font-family: 'Cinzel', serif; font-size: 0.75rem; color: var(--gold); letter-spacing: 2px; font-weight: 600; }
+  .tk-notice-cat { font-size: 0.5rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); font-family: 'Montserrat', sans-serif; }
+  .tk-notice-title { font-family: 'Cinzel', serif; font-size: 0.82rem; color: var(--white); letter-spacing: 1px; display: block; margin-bottom: 14px; }
+  .tk-notice-section { margin-bottom: 10px; }
+  .tk-notice-section:last-child { margin-bottom: 0; }
+  .tk-notice-label { font-size: 0.55rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 500; display: block; margin-bottom: 3px; }
+  .tk-notice-section p { font-size: 0.68rem; color: rgba(255,255,255,0.55); line-height: 1.75; margin: 0; }
+
 </style>
 </head>
 <body>
@@ -680,6 +725,7 @@
     <a href="javascript:void(0)" onclick="navigateTo('about')" data-page="about">About</a>
     <a href="javascript:void(0)" onclick="navigateTo('sectors')" data-page="sectors">Sectors</a>
     <a href="javascript:void(0)" onclick="navigateTo('training')" data-page="training">Training</a>
+    <a href="javascript:void(0)" onclick="navigateTo('toolkit')" data-page="toolkit">PCC Toolkit</a>
     <a href="javascript:void(0)" onclick="navigateTo('insights')" data-page="insights">Insights</a>
     <button class="nav-cta" onclick="navigateTo('contact')" data-page="contact">Contact</button>
   </div>
@@ -695,12 +741,21 @@
   <a href="javascript:void(0)" onclick="navigateTo('about'); closeMobile()">About</a>
   <a href="javascript:void(0)" onclick="navigateTo('sectors'); closeMobile()">Sectors</a>
   <a href="javascript:void(0)" onclick="navigateTo('training'); closeMobile()">Training</a>
+  <a href="javascript:void(0)" onclick="navigateTo('toolkit'); closeMobile()">PCC Toolkit</a>
   <a href="javascript:void(0)" onclick="navigateTo('insights'); closeMobile()">Insights</a>
   <a href="javascript:void(0)" onclick="navigateTo('contact'); closeMobile()">Contact</a>
   <a href="javascript:void(0)" onclick="navigateTo('privacy'); closeMobile()" style="font-size:0.9rem;opacity:0.6;">Privacy Policy</a>
+  <a href="javascript:void(0)" onclick="navigateTo('terms'); closeMobile()" style="font-size:0.9rem;opacity:0.6;">Terms of Use</a>
 </div>
 
 <!-- ==================== HOME PAGE ==================== -->
+
+<!-- Netlify form detector for toolkit registration -->
+<form name="toolkit-registration" netlify netlify-honeypot="bot-field" hidden>
+  <input type="text" name="name">
+  <input type="email" name="email">
+  <input type="text" name="organisation">
+</form>
 <div class="page active visible" id="page-home">
 
   <section class="hero">
@@ -738,17 +793,24 @@
       <div class="svc reveal reveal-delay-3"><div class="num">03</div><h3>Evaluation Support &amp; Assurance</h3><p>Designing evaluation models and scoring frameworks, providing guidance for evaluation panels, moderation and consistency reviews, and assurance reporting to strengthen defensibility of procurement decisions.</p></div>
       <div class="svc reveal reveal-delay-4"><div class="num">04</div><h3>Contract &amp; Commissioning Support</h3><p>Needs analysis, options appraisals, commissioning strategy support, contract management frameworks, KPI development, and supplier performance review support to help maintain effective contracts.</p></div>
       <div class="svc reveal reveal-delay-5"><div class="num">05</div><h3>Governance, Risk &amp; Compliance Reviews</h3><p>Procurement policy and process reviews, governance assessments, conflict of interest controls, audit readiness reviews, risk register development, and procurement legislation compliance advice.</p></div>
-      <div class="svc reveal reveal-delay-5"><div class="num">06</div><h3>Training &amp; Capability Development</h3><p>Tailored procurement training and capability development programmes for officers and decision-makers, aligned with current legislation and professional standards.</p></div>
+      <div class="svc reveal reveal-delay-6"><div class="num">06</div><h3>Training &amp; Capability Development</h3><p>Tailored procurement training and capability development programmes for officers and decision-makers, aligned with current legislation and professional standards.</p></div>
     </div>
   </section>
 
   <div class="gold-divider"></div>
 
+  <section style="padding:5rem 2rem;text-align:center;border-top:3px solid #c5a55a;border-top-width:0;background:rgba(197,165,90,0.04);">
+    <div class="overline">Free for Practitioners</div>
+    <h3 style="font-family:Cinzel,serif;font-size:1.6rem;font-weight:400;letter-spacing:2px;margin:0.75rem 0 1rem;">PCC Toolkit</h3>
+    <p style="max-width:520px;margin:0 auto 2rem;color:rgba(255,255,255,0.55);font-size:0.9rem;line-height:1.8;">A free suite of procurement reference tools built for public sector practitioners. From timeline calculators to compliance checklists &mdash; no login required for the core set.</p>
+    <button class="btn-gold" onclick="navigateTo('toolkit')">Explore the Toolkit</button>
+  </section>
+
   <section class="why">
     <div class="why-left reveal">
       <div style="font-size:0.55rem;letter-spacing:6px;text-transform:uppercase;color:#c5a55a;font-weight:500;margin-bottom:14px;">Why Prestige</div>
       <h2>Built on<br>Foundations of Trust</h2>
-      <p>Our consultants bring deep public sector procurement experience, CIPS qualifications, and an unwavering commitment to the CIPS Ethical Code. Every engagement is delivered with transparency, fairness, and commercial rigour. The client retains full decision-making authority at all times.</p>
+      <p>Our directors bring over a decade of combined experience in senior public sector procurement and commissioning roles. Before founding Prestige, they held operational positions across local government and the wider public sector, giving them first-hand knowledge of the pressures, governance requirements, and practical realities our clients face. Every engagement is delivered with transparency, fairness, and commercial rigour. The client retains full decision-making authority at all times.</p>
       <button class="btn-gold" onclick="navigateTo('about')">About Our Team</button>
     </div>
     <div class="why-right">
@@ -814,9 +876,9 @@
         <div class="num">05</div><h3>Governance, Risk &amp; Compliance Reviews</h3>
         <p>We provide procurement policy and process reviews, governance and assurance assessments, conflict of interest control reviews, audit readiness assessments, risk identification and mitigation advice, and procurement legislation compliance advice including support for transitioning to new legislation.</p>
       </div>
-      <div class="svc reveal reveal-delay-5">
+      <div class="svc reveal reveal-delay-6">
         <div class="num">06</div><h3>Training &amp; Capability Development</h3>
-        <p>We deliver tailored training programmes for procurement professionals, commissioners, and senior decision-makers. From legislation updates and evaluation best practice to CIPS-aligned fundamentals and advanced contract strategy, we build capability that lasts. Our courses are available as bespoke in-house sessions or through published online platforms.</p>
+        <p>We deliver tailored training programmes for procurement professionals, commissioners, and senior decision-makers. From legislation updates and evaluation best practice to procurement fundamentals and advanced contract strategy, we build capability that lasts. Our courses are available as bespoke in-house sessions. Structured online courses are in development and will be available via Udemy and direct through our website ahead of our July 2026 launch.</p>
       </div>
     </div>
   </section>
@@ -892,7 +954,7 @@
     <div class="reveal">
       <h2>Our<br>Background</h2>
       <p>Prestige Commercial Consulting was founded on the belief that public sector procurement deserves the same rigour, expertise, and strategic thinking as the private sector, delivered with the transparency and ethical commitment that public service demands.</p>
-      <p>With over 10 years of combined experience across local government, the NHS, central government, and the wider public sector, our team has supported procurement programmes worth in excess of &pound;250M in total contract value.</p>
+      <p>Our directors bring over a decade of combined experience in senior public sector procurement and commissioning roles, having worked across local government and the wider public sector. Prior to founding Prestige, they held operational and strategic procurement positions supporting programmes spanning construction, professional services, IT, and social care &mdash; with public contracts with aggregate values exceeding £250 million, spanning our directors' combined public sector careers. That hands-on practitioner background is what distinguishes Prestige: we have sat in the roles our clients hold, and we understand the pressures, governance requirements, and practical realities they face.</p>
     </div>
     <div class="reveal reveal-delay-2">
       <h2>Our<br>Approach</h2>
@@ -905,9 +967,9 @@
 
   <section class="stats-row">
     <div class="stat-item reveal"><div class="num">10+</div><div class="label">Years Combined Experience</div></div>
-    <div class="stat-item reveal reveal-delay-1"><div class="num">&pound;250M+</div><div class="label">Contract Value Supported</div></div>
-    <div class="stat-item reveal reveal-delay-2"><div class="num">100%</div><div class="label">Regulatory Compliance</div></div>
-    <div class="stat-item reveal reveal-delay-3"><div class="num">CIPS</div><div class="label">Qualified Consultants</div></div>
+    <div class="stat-item reveal reveal-delay-1"><div class="num">&pound;250M+</div><div class="label">Public Contracts Advised Across Our Careers</div></div>
+    <div class="stat-item reveal reveal-delay-2"><div class="num">PA23</div><div class="label">Legislation Specialists</div></div>
+    <div class="stat-item reveal reveal-delay-3"><div class="num">CIPS</div><div class="label">Qualified Directors</div></div>
   </section>
 
   <div class="gold-divider"></div>
@@ -1027,7 +1089,7 @@
       <h2>Training &amp; Capability Development</h2>
     </div>
     <div style="max-width:800px;margin:0 auto 50px;text-align:center;" class="reveal">
-      <p style="font-size:0.78rem;line-height:1.9;color:var(--slate);font-weight:300;">Alongside our core consultancy services, we provide training and capability development support to help procurement professionals, commissioners, and senior decision-makers build lasting skills. Our training is aligned with current legislation and professional standards, and is available as bespoke in-house sessions or through our published online courses.</p>
+      <p style="font-size:0.78rem;line-height:1.9;color:var(--slate);font-weight:300;">Alongside our core consultancy services, we provide training and capability development support to help procurement professionals, commissioners, and senior decision-makers build lasting skills. Our training is aligned with current legislation and professional standards, and is available as bespoke in-house sessions. Structured online courses are in development for publication ahead of our July 2026 launch.</p>
     </div>
     <div class="training-features">
       <div class="training-feature reveal reveal-delay-1">
@@ -1038,7 +1100,7 @@
       <div class="training-feature reveal reveal-delay-2">
         <div class="icon">&#x25A3;</div>
         <h4>Online Courses</h4>
-        <p>Published courses available through platforms such as Udemy, providing accessible, self-paced learning for procurement professionals at all levels.</p>
+        <p>Structured online courses are in development, covering PA23, evaluation, contract management, and governance. Available via Udemy and direct through our website ahead of our July 2026 launch. Get in touch to register your interest.</p>
       </div>
       <div class="training-feature reveal reveal-delay-3">
         <div class="icon">&#x2B21;</div>
@@ -1071,7 +1133,7 @@
     <div class="about-content">
       <div class="overline">Knowledge &amp; Thinking</div>
       <h1>Our <em>Insights</em></h1>
-      <p>Expert commentary on procurement legislation, best practice, and the evolving landscape of public sector commissioning.</p>
+      <p>Our thinking on procurement legislation, best practice, and the evolving landscape of public sector commissioning.</p>
     </div>
   </section>
 
@@ -1155,7 +1217,7 @@
         <div class="cd-icon">&#x2709;</div>
         <div class="cd-text">
           <div class="cd-label">Email</div>
-          <div class="cd-value"><a href="mailto:enquiries@prestigecommercialconsultancy.co.uk" style="color:rgba(255,255,255,0.7);text-decoration:none;">enquiries@prestigecommercialconsultancy.co.uk</a></div>
+          <div class="cd-value"><a href="mailto:hello@prestigecommercialconsultancy.co.uk" style="color:rgba(255,255,255,0.7);text-decoration:none;">hello@prestigecommercialconsultancy.co.uk</a></div>
         </div>
       </div>
       <div class="contact-detail">
@@ -1168,10 +1230,9 @@
     </div>
 
     <div class="reveal reveal-delay-2">
-      <form class="contact-form" id="contactForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+      <form class="contact-form" id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
         <h3>Send a Message</h3>
-        <input type="hidden" name="_next" value="https://www.prestigecommercialconsultancy.co.uk#contact">
-        <input type="hidden" name="_subject" value="New Enquiry from PCC Website">
+        <p class="hidden" style="display:none;"><label>Don't fill this out if you're human: <input name="bot-field"></label></p>
         <div class="form-row">
           <div class="form-group">
             <label for="firstName">First Name</label>
@@ -1205,14 +1266,14 @@
         </div>
         <div class="form-group">
           <label for="message">Message</label>
-          <textarea id="message" name="message" placeholder="Tell us about your requirements..."></textarea>
+          <textarea id="message" name="message" required placeholder="Tell us about your requirements..."></textarea>
         </div>
         <div class="form-submit">
-          <button class="btn-gold" type="submit">Send Message</button>
+          <p style="font-size:0.62rem;color:rgba(255,255,255,0.35);line-height:1.7;margin-bottom:1rem;">Your information will be used to respond to your enquiry and managed in accordance with our <a href="javascript:void(0)" onclick="navigateTo('privacy')" style="color:var(--gold);">Privacy Policy</a>. We will not use your details for marketing without your separate consent.</p><button class="btn-gold" type="submit">Send Message</button>
         </div>
         <div class="form-success" id="formSuccess">
           <p>Message Sent Successfully</p>
-          <span>Thank you for getting in touch. We'll respond within one working day.</span>
+          <span>Thank you for getting in touch. We will be in contact shortly.</span>
         </div>
       </form>
     </div>
@@ -1235,12 +1296,12 @@
   <div class="gold-divider"></div>
 
   <section class="policy-content">
-    <div class="policy-updated">Last updated: July 2026</div>
+    <div class="policy-updated">Last updated: March 2026</div>
 
     <div class="policy-section reveal">
       <h2>1. Who We Are</h2>
       <p>Prestige Commercial Consulting Limited ("we", "us", "our") is a company registered in England and Wales (Company No. 17059746) with its registered office at 128 City Road, London, EC1V 2NX.</p>
-      <p>We are the data controller for the personal information we collect through this website and in the course of our business activities. If you have any questions about how we handle your personal data, you can contact us at enquiries@prestigecommercialconsultancy.co.uk.</p>
+      <p>We are the data controller for the personal information we collect through this website and in the course of our business activities. If you have any questions about how we handle your personal data, you can contact us at hello@prestigecommercialconsultancy.co.uk.</p>
     </div>
 
     <div class="policy-section reveal">
@@ -1251,9 +1312,13 @@
         <li>Your name, email address, telephone number, and organisation name when you complete our contact form or correspond with us</li>
         <li>Details of your enquiry or the services you are interested in</li>
         <li>Any other information you choose to share with us in the course of our communications</li>
+        <li>Your email address when you sign up to our mailing list or to access tools on our free procurement portal</li>
+        <li>Billing information if you purchase paid products from us (processed by our payment provider — we do not store card details)</li>
       </ul>
       <h3>Information collected automatically</h3>
       <p>This website does not currently use cookies, analytics tracking, or any automated data collection technologies. If this changes in future, this policy will be updated accordingly.</p>
+      <h3>Browser storage</h3>
+      <p>Our free procurement tools use your browser&rsquo;s local storage to save tool states on your device. This data is not transmitted to us and remains solely on your device.</p>
     </div>
 
     <div class="policy-section reveal">
@@ -1264,14 +1329,18 @@
         <li>To provide the consultancy services you have engaged us to deliver</li>
         <li>To manage our contractual relationship with you or your organisation</li>
         <li>To comply with our legal and regulatory obligations</li>
+        <li>To send you updates where you have consented (mailing list)</li>
+        <li>To provide access to tools on our procurement portal</li>
+        <li>To process payments for products or services</li>
       </ul>
+      <p>We will only send marketing communications where you have expressly opted in. You can unsubscribe at any time.</p>
     </div>
 
     <div class="policy-section reveal">
       <h2>4. Lawful Basis for Processing</h2>
       <p>Under the UK General Data Protection Regulation (UK GDPR), we rely on the following lawful bases for processing your personal data:</p>
       <ul>
-        <li><strong>Consent:</strong> When you submit a contact form enquiry, you consent to us using your information to respond to you</li>
+        <li><strong>Legitimate interests:</strong> Where you submit a contact form enquiry, we process your information on the basis of our legitimate interests in responding to and managing business enquiries. Any subsequent marketing communications rely on separately obtained consent</li>
         <li><strong>Contractual necessity:</strong> Where processing is necessary to perform a contract with you or to take steps at your request before entering into a contract</li>
         <li><strong>Legitimate interests:</strong> Where processing is necessary for our legitimate business interests, such as maintaining records of our professional engagements, provided these interests do not override your rights</li>
         <li><strong>Legal obligation:</strong> Where processing is necessary to comply with a legal obligation to which we are subject</li>
@@ -1284,6 +1353,9 @@
       <ul>
         <li>Our professional advisors (such as accountants or legal advisors) where necessary for the operation of our business</li>
         <li>Regulatory bodies or law enforcement agencies where we are required to do so by law</li>
+        <li><strong>Netlify, Inc.</strong> &mdash; this website is hosted on Netlify. Contact form submissions are processed by Netlify as our data processor. See <a href="https://www.netlify.com/privacy" style="color:#c5a55a;">netlify.com/privacy</a></li>
+        <li><strong>Email marketing platforms</strong> &mdash; where you have consented to marketing emails, your address may be stored with a third-party email provider. You will be notified of the platform name in your first email communication from us</li>
+        <li><strong>Payment processors</strong> &mdash; where you purchase paid products, payments are processed by Stripe, Inc. We do not store card details. See <a href="https://stripe.com/privacy" style="color:#c5a55a;">stripe.com/privacy</a></li>
       </ul>
       <p>We will not share your personal information with any other third parties without your prior consent unless required to do so by law.</p>
     </div>
@@ -1306,7 +1378,7 @@
         <li><strong>Right to object:</strong> You can object to certain types of processing, including processing based on legitimate interests</li>
         <li><strong>Right to withdraw consent:</strong> Where we rely on your consent to process your data, you can withdraw that consent at any time</li>
       </ul>
-      <p>To exercise any of these rights, please contact us at enquiries@prestigecommercialconsultancy.co.uk. We will respond to your request within one month.</p>
+      <p>To exercise any of these rights, please contact us at hello@prestigecommercialconsultancy.co.uk. We will respond to your request within one month.</p>
     </div>
 
     <div class="policy-section reveal">
@@ -1323,6 +1395,270 @@
   </section>
 
 </div>
+
+<!-- ==================== TERMS OF USE PAGE ==================== -->
+<div class="page" id="page-terms">
+
+  <section class="about-hero">
+    <div class="hero-lines"></div>
+    <div class="about-content">
+      <div class="overline">Legal</div>
+      <h1>Terms <em>of Use</em></h1>
+      <p>Terms governing your use of this website and the PCC Toolkit portal.</p>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <section class="policy-content">
+    <div class="policy-updated">Last updated: March 2026</div>
+
+    <div class="policy-section reveal">
+      <h2>1. About These Terms</h2>
+      <p>These Terms of Use govern your use of the Prestige Commercial Consulting Limited website at prestigecommercialconsultancy.co.uk and the PCC Toolkit procurement portal accessible from it. By accessing or using this website, you agree to be bound by these terms. If you do not agree, please do not use the website.</p>
+      <p>Prestige Commercial Consulting Limited is a company registered in England and Wales (Company No. 17059746) with its registered office at 128 City Road, London, EC1V 2NX.</p>
+    </div>
+
+    <div class="policy-section reveal">
+      <h2>2. The PCC Toolkit</h2>
+      <p>The PCC Toolkit is a free suite of reference tools provided to support procurement practitioners. The tools are provided in good faith and are intended to assist users in understanding procurement processes, legislation, and best practice.</p>
+      <p><strong>Important limitations:</strong> All tools and content within the PCC Toolkit are provided for general reference purposes only. They do not constitute legal advice, procurement advice, or any form of professional recommendation. Users must verify all regulatory requirements, thresholds, timescales, and legal obligations against current legislation and official guidance before acting on any information produced by the tools. Prestige Commercial Consulting Limited accepts no liability for decisions made in reliance on tool outputs.</p>
+      <p>The Procurement Act 2023 and its secondary legislation are subject to ongoing development, including procurement policy notes and guidance from the Cabinet Office. You should always check that tool content reflects the current position.</p>
+    </div>
+
+    <div class="policy-section reveal">
+      <h2>3. Mailing List and Portal Access</h2>
+      <p>Certain tools within the PCC Toolkit are available to users who register their email address with us. By providing your email address you consent to receiving procurement updates and guidance relevant to your registration with us. Where you also wish to receive marketing communications from Prestige Commercial Consulting Limited, you will be invited to opt in separately. You can unsubscribe from any communications at any time by clicking the unsubscribe link in any email we send, or by contacting us at hello@prestigecommercialconsultancy.co.uk. Unsubscribing will not affect your ability to use any tools you have already accessed.</p>
+      <p>You can unsubscribe from our mailing list at any time by clicking the unsubscribe link in any email we send, or by contacting us at hello@prestigecommercialconsultancy.co.uk. Unsubscribing will not affect your ability to use any tools you have already accessed.</p>
+    </div>
+
+    <div class="policy-section reveal">
+      <h2>4. Intellectual Property</h2>
+      <p>All content on this website, including tool designs, text, graphics, layouts, and the PCC Toolkit, is owned by or licensed to Prestige Commercial Consulting Limited. All rights are reserved.</p>
+      <p>You may use outputs generated by the PCC Toolkit for your own internal purposes within your organisation. You may not reproduce, redistribute, resell, or publish any content from this website or the PCC Toolkit without our prior written consent.</p>
+    </div>
+
+    <div class="policy-section reveal">
+      <h2>5. Paid Products</h2>
+      <p>If we introduce paid access tiers, subscriptions, or licence products, separate Terms of Sale will be presented to you at the point of purchase and will form part of the agreement between us. All paid products are provided on a business-to-business basis and licences are personal to the purchasing organisation and are not transferable without our consent.</p>
+    </div>
+
+    <div class="policy-section reveal">
+      <h2>6. Limitation of Liability</h2>
+      <p>To the fullest extent permitted by applicable law, Prestige Commercial Consulting Limited excludes all liability for any direct, indirect, consequential, special, or economic loss, loss of profit, loss of contract, loss of data, or any other loss or damage of any kind arising from your use of or reliance on this website or any content within the PCC Toolkit, including but not limited to procurement decisions made on the basis of tool outputs, whether arising in contract, tort (including negligence), or otherwise.</p>
+      <p>Nothing in these terms limits our liability for death or personal injury caused by negligence, fraud or fraudulent misrepresentation, or any other liability that cannot be excluded or limited under English law.</p>
+    </div>
+
+    <div class="policy-section reveal">
+      <h2>7. Links to Third Parties</h2>
+      <p>This website may contain links to third-party websites, including procurement portals, government guidance, and professional bodies. These links are provided for convenience only and do not constitute an endorsement of those websites or their content. We have no control over and accept no responsibility for third-party content.</p>
+    </div>
+
+    <div class="policy-section reveal">
+      <h2>8. Governing Law</h2>
+      <p>These Terms of Use and any dispute arising from your use of this website are governed by the laws of England and Wales. You agree to submit to the exclusive jurisdiction of the courts of England and Wales in relation to any such dispute.</p>
+    </div>
+
+    <div class="policy-section reveal">
+      <h2>9. Changes to These Terms</h2>
+      <p>We may update these Terms of Use from time to time to reflect changes to the website, our services, or applicable law. Any changes will be posted on this page with an updated revision date. Your continued use of the website following any changes constitutes your acceptance of the revised terms. We encourage you to review these terms periodically.</p>
+    </div>
+
+  </section>
+
+</div>
+
+
+<!-- ==================== PCC TOOLKIT PAGE ==================== -->
+<div class="page" id="page-toolkit">
+
+  <section class="about-hero">
+    <div class="hero-lines"></div>
+    <div class="about-content">
+      <div class="overline">Free for Practitioners</div>
+      <h1>PCC <em>Toolkit</em></h1>
+      <p>Working procurement tools built by practitioners. The core set is free with no registration required. Paid products including e-learning and advanced tools are available separately.</p>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- DISCLAIMER -->
+  <section style="padding:2rem 80px 0;background:var(--navy-mid);">
+    <div style="max-width:1100px;margin:0 auto;background:rgba(197,165,90,0.06);border-left:3px solid var(--gold);padding:1rem 1.5rem;border-radius:0 4px 4px 0;">
+      <p style="margin:0;font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.7;"><strong style="color:var(--gold);font-family:'Cinzel',serif;letter-spacing:1px;">Reference purposes only.</strong> &nbsp;These tools are provided for general guidance and do not constitute legal or procurement advice. Always verify requirements against current legislation before acting.</p>
+    </div>
+  </section>
+
+  <!-- ── FREE TOOLS ─────────────────────────────────────────── -->
+  <section class="services" style="background:var(--navy-mid);padding-top:3rem;">
+    <div class="section-head reveal" style="text-align:center;">
+      <div class="over">No Registration Required</div>
+      <h2>Free Tools</h2>
+    </div>
+
+    <!-- TOOL 1: TIMELINE BUILDER -->
+    <div class="svc reveal" style="max-width:1100px;margin:0 auto 2px;">
+      <div class="num">01</div>
+      <h3>Procurement Timeline Builder</h3>
+      <p style="font-size:0.75rem;color:var(--slate);margin-bottom:1.5rem;line-height:1.8;">Enter your procurement start date and target contract start date. The tool calculates your critical path with PA23 statutory minimum periods built in and flags whether your timeline is achievable for an Open Procedure.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:16px;align-items:end;max-width:700px;margin-bottom:1.5rem;" class="tk-date-grid">
+        <div>
+          <label style="display:block;font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-family:'Cinzel',serif;">Procurement Start</label>
+          <input type="date" id="tk-start" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(197,165,90,0.2);color:var(--white);padding:10px 14px;font-family:'Montserrat',sans-serif;font-size:0.75rem;border-radius:2px;">
+        </div>
+        <div>
+          <label style="display:block;font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-family:'Cinzel',serif;">Target Contract Start</label>
+          <input type="date" id="tk-end" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(197,165,90,0.2);color:var(--white);padding:10px 14px;font-family:'Montserrat',sans-serif;font-size:0.75rem;border-radius:2px;">
+        </div>
+        <button onclick="tkTimeline()" style="background:var(--gold);color:var(--navy);border:none;padding:10px 24px;font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;font-family:'Montserrat',sans-serif;font-weight:700;cursor:pointer;white-space:nowrap;border-radius:2px;">Calculate</button>
+      </div>
+      <div id="tk-timeline-out" style="display:none;background:rgba(0,0,0,0.2);border:1px solid rgba(197,165,90,0.15);padding:1.5rem;border-radius:2px;font-size:0.72rem;line-height:2;color:rgba(255,255,255,0.7);"></div>
+    </div>
+
+    <!-- TOOL 2: PROCEDURE SELECTOR -->
+    <div class="svc reveal reveal-delay-1" style="max-width:1100px;margin:0 auto 2px;">
+      <div class="num">02</div>
+      <h3>Procedure Type Selector</h3>
+      <p style="font-size:0.75rem;color:var(--slate);margin-bottom:1.5rem;line-height:1.8;">Answer three questions about your contract to identify the most appropriate procurement procedure under the Procurement Act 2023.</p>
+      <div id="tk-proc-q" style="max-width:700px;">
+        <div id="tk-pq1">
+          <p style="font-size:0.75rem;color:var(--white);margin-bottom:12px;font-weight:500;">1. Is your estimated contract value above the relevant PA23 threshold?</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <button onclick="tkProc(1,'above')" class="tk-opt">Yes &mdash; above threshold</button>
+            <button onclick="tkProc(1,'below')" class="tk-opt">No &mdash; below threshold</button>
+            <button onclick="tkProc(1,'framework')" class="tk-opt">Calling off a framework</button>
+          </div>
+        </div>
+        <div id="tk-pq2" style="display:none;margin-top:1.2rem;">
+          <p style="font-size:0.75rem;color:var(--white);margin-bottom:12px;font-weight:500;">2. Is there a need to engage with the market before issuing documents?</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <button onclick="tkProc(2,'yes')" class="tk-opt">Yes &mdash; requirements are complex or unclear</button>
+            <button onclick="tkProc(2,'no')" class="tk-opt">No &mdash; requirements are well defined</button>
+          </div>
+        </div>
+        <div id="tk-pq3" style="display:none;margin-top:1.2rem;">
+          <p style="font-size:0.75rem;color:var(--white);margin-bottom:12px;font-weight:500;">3. Do you need a multi-stage process, such as a participation stage, presentations, dialogue, or negotiation before final tenders?</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <button onclick="tkProc(3,'yes')" class="tk-opt">Yes</button>
+            <button onclick="tkProc(3,'no')" class="tk-opt">No</button>
+          </div>
+        </div>
+        <div id="tk-proc-result" style="display:none;margin-top:1.5rem;background:rgba(197,165,90,0.08);border-left:3px solid var(--gold);padding:1.2rem 1.5rem;border-radius:0 4px 4px 0;">
+          <p id="tk-proc-label" style="font-family:'Cinzel',serif;font-size:0.9rem;color:var(--gold);margin:0 0 6px;"></p>
+          <p id="tk-proc-desc" style="font-size:0.72rem;color:rgba(255,255,255,0.6);margin:0 0 10px;line-height:1.8;"></p>
+          <button onclick="tkProcReset()" style="font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;background:transparent;border:1px solid rgba(197,165,90,0.3);color:var(--gold);padding:6px 16px;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:2px;">Start Again</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOOL 3: GLOSSARY -->
+    <div class="svc reveal reveal-delay-2" style="max-width:1100px;margin:0 auto 2px;">
+      <div class="num">03</div>
+      <h3>Procurement Glossary</h3>
+      <p style="font-size:0.75rem;color:var(--slate);margin-bottom:1.5rem;line-height:1.8;">Plain-English definitions of key procurement terms, PA23 concepts, and common acronyms. Type to search.</p>
+      <input type="text" id="tk-gloss-search" oninput="tkGlossSearch()" placeholder="Search terms e.g. standstill, KPI, TUPE..." style="width:100%;max-width:500px;background:rgba(255,255,255,0.05);border:1px solid rgba(197,165,90,0.2);color:var(--white);padding:10px 14px;font-family:'Montserrat',sans-serif;font-size:0.75rem;border-radius:2px;margin-bottom:1.2rem;box-sizing:border-box;">
+      <div id="tk-gloss-out" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;max-height:320px;overflow-y:auto;"></div>
+    </div>
+
+    <!-- TOOL 4: PA23 NOTICES REFERENCE -->
+    <div class="svc reveal" style="max-width:1100px;margin:0 auto 2px;">
+      <div class="num">04</div>
+      <h3>PA23 Notices Reference</h3>
+      <p style="font-size:0.75rem;color:var(--slate);margin-bottom:1.5rem;line-height:1.8;">A reference guide to all UK notice types required or permitted under the Procurement Act 2023, including when each is required, its purpose, and key limitations.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.5rem;" id="tk-notice-filters">
+        <button onclick="tkNoticeFilter('all')" class="tk-opt tk-nf-active" data-filter="all">All (17)</button>
+        <button onclick="tkNoticeFilter('pre')" class="tk-opt" data-filter="pre">Pre-Procurement</button>
+        <button onclick="tkNoticeFilter('competition')" class="tk-opt" data-filter="competition">Competition &amp; Dynamic Markets</button>
+        <button onclick="tkNoticeFilter('award')" class="tk-opt" data-filter="award">Award &amp; Post-Award</button>
+        <button onclick="tkNoticeFilter('reporting')" class="tk-opt" data-filter="reporting">Reporting &amp; Lifecycle</button>
+      </div>
+      <div id="tk-notices-out" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px;"></div>
+    </div>
+
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- ── PAID PRODUCTS ──────────────────────────────────────── -->
+  <section class="how-we-work" style="padding:80px;">
+    <div class="section-head reveal" style="text-align:center;">
+      <div class="over">Available to Purchase</div>
+      <h2>Paid Products</h2>
+    </div>
+    <div style="max-width:800px;margin:0 auto 50px;text-align:center;" class="reveal">
+      <p style="font-size:0.78rem;line-height:1.9;color:var(--slate);font-weight:300;">Our paid products go beyond the free toolkit, offering structured e-learning, advanced reference tools, and customisable content that can be tailored to your organisation. Get in touch to discuss pricing and options.</p>
+    </div>
+
+    <div class="training-features" style="max-width:1000px;margin:0 auto 50px;">
+
+      <div class="training-feature reveal reveal-delay-1" style="position:relative;">
+        <div style="position:absolute;top:12px;right:12px;font-size:0.5rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-family:'Cinzel',serif;">Paid</div>
+        <div class="icon">&#127891;</div>
+        <h4>Procurement E-Learning</h4>
+        <p>Structured online learning covering PA23, procurement procedures, evaluation, contract management, and governance. Knowledge checks and quizzes throughout. Can be customised to your organisation&rsquo;s policies and procedures.</p>
+      </div>
+
+      <div class="training-feature reveal reveal-delay-2" style="position:relative;">
+        <div style="position:absolute;top:12px;right:12px;font-size:0.5rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-family:'Cinzel',serif;">Paid</div>
+        <div class="icon">&#128200;</div>
+        <h4>KPI Library by Contract Category</h4>
+        <p>A curated, exportable library of KPI and performance measure suggestions across construction, professional services, IT, social care, and facilities management. Filterable by category and contract type.</p>
+      </div>
+
+      <div class="training-feature reveal reveal-delay-3" style="position:relative;">
+        <div style="position:absolute;top:12px;right:12px;font-size:0.5rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-family:'Cinzel',serif;">Paid</div>
+        <div class="icon">&#128737;</div>
+        <h4>Insurance Requirements Matrix</h4>
+        <p>A reference matrix of typical insurance requirements by contract type and value, covering public liability, professional indemnity, and employer&rsquo;s liability. Exportable and suitable for inclusion in tender documents.</p>
+      </div>
+
+      <div class="training-feature reveal reveal-delay-4" style="position:relative;">
+        <div style="position:absolute;top:12px;right:12px;font-size:0.5rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-family:'Cinzel',serif;">Paid &mdash; Bespoke</div>
+        <div class="icon">&#9881;</div>
+        <h4>Custom Toolkit Licence</h4>
+        <p>A version of the toolkit configured for your organisation &mdash; covering your own procedures, thresholds, templates, and governance requirements. Suitable for procurement teams, commissioners, and decision-makers. Contact us to discuss.</p>
+      </div>
+
+    </div>
+
+    <!-- MAILING LIST REGISTRATION -->
+    <div class="reveal" style="max-width:560px;margin:0 auto;background:rgba(197,165,90,0.06);border:1px solid rgba(197,165,90,0.2);padding:2.5rem;border-radius:4px;text-align:center;">
+      <div style="font-size:0.55rem;letter-spacing:6px;text-transform:uppercase;color:var(--gold);font-family:'Cinzel',serif;margin-bottom:1rem;">Stay Informed</div>
+      <h3 style="font-family:'Cinzel',serif;font-size:1.1rem;font-weight:400;letter-spacing:2px;margin:0 0 0.75rem;">Join Our Mailing List</h3>
+      <p style="font-size:0.7rem;color:var(--slate);line-height:1.8;margin-bottom:0.5rem;">Receive procurement updates, PA23 guidance, and early access to new tools and products. Subscribers receive a discount on paid products at launch.</p>
+      <p style="font-size:0.65rem;color:rgba(255,255,255,0.3);margin-bottom:1.5rem;">No spam. Unsubscribe at any time.</p>
+      <div id="tk-reg-form">
+        <input type="text" id="tk-reg-name" placeholder="Your name" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(197,165,90,0.2);color:var(--white);padding:12px 16px;font-family:'Montserrat',sans-serif;font-size:0.75rem;border-radius:2px;margin-bottom:10px;box-sizing:border-box;">
+        <input type="text" id="tk-reg-org" placeholder="Organisation (optional)" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(197,165,90,0.2);color:var(--white);padding:12px 16px;font-family:'Montserrat',sans-serif;font-size:0.75rem;border-radius:2px;margin-bottom:10px;box-sizing:border-box;">
+        <input type="email" id="tk-reg-email" placeholder="Email address" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(197,165,90,0.2);color:var(--white);padding:12px 16px;font-family:'Montserrat',sans-serif;font-size:0.75rem;border-radius:2px;margin-bottom:6px;box-sizing:border-box;">
+        <p style="font-size:0.6rem;color:rgba(255,255,255,0.3);margin-bottom:1.2rem;line-height:1.6;">By registering you consent to receiving procurement updates and marketing communications from Prestige Commercial Consulting Limited. Unsubscribe at any time. See our <a href="javascript:void(0)" onclick="navigateTo('privacy')" style="color:var(--gold);">Privacy Policy</a>.</p>
+        <button onclick="tkRegister()" style="width:100%;background:var(--gold);color:var(--navy);border:none;padding:14px;font-size:0.6rem;letter-spacing:4px;text-transform:uppercase;font-family:'Montserrat',sans-serif;font-weight:700;cursor:pointer;border-radius:2px;">Register</button>
+      </div>
+      <div id="tk-reg-success" style="display:none;">
+        <div style="font-size:2rem;margin-bottom:1rem;">&#10003;</div>
+        <p style="font-family:'Cinzel',serif;font-size:0.9rem;color:var(--gold);margin-bottom:0.5rem;">You&rsquo;re on the list.</p>
+        <p style="font-size:0.72rem;color:var(--slate);line-height:1.8;">We&rsquo;ll be in touch ahead of our July 2026 launch with updates, new tools, and your subscriber discount.</p>
+      </div>
+    </div>
+
+    <div class="reveal" style="max-width:560px;margin:2rem auto 0;text-align:center;">
+      <p style="font-size:0.65rem;color:rgba(255,255,255,0.25);line-height:1.8;">Paid products are available for purchase via our website and Udemy. Where purchasing directly, payments are processed securely via <strong style="color:rgba(255,255,255,0.35);">Stripe</strong>. Separate Terms of Sale apply.</p>
+    </div>
+
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-dark">
+    <div class="reveal">
+      <h2>Need More Than a Toolkit?</h2>
+      <p>The Toolkit covers the fundamentals. For complex procurements, contested frameworks, contract disputes, or strategic commissioning support, our consultancy team is here to help.</p>
+      <button class="btn-gold" onclick="navigateTo('contact')">Get in Touch</button>
+    </div>
+  </section>
+
+</div>
+
 
 <!-- FOOTER -->
 <footer>
@@ -1348,17 +1684,19 @@
       <a href="javascript:void(0)" onclick="navigateTo('about')" style="cursor:pointer;">About</a>
       <a href="javascript:void(0)" onclick="navigateTo('sectors')" style="cursor:pointer;">Sectors</a>
       <a href="javascript:void(0)" onclick="navigateTo('training')" style="cursor:pointer;">Training</a>
+      <a href="javascript:void(0)" onclick="navigateTo('toolkit')" style="cursor:pointer;">PCC Toolkit</a>
       <a href="javascript:void(0)" onclick="navigateTo('insights')" style="cursor:pointer;">Insights</a>
+      <a href="javascript:void(0)" onclick="navigateTo('terms')" style="cursor:pointer;">Terms of Use</a>
       <a href="javascript:void(0)" onclick="navigateTo('contact')" style="cursor:pointer;">Contact</a>
       <a href="javascript:void(0)" onclick="navigateTo('privacy')" style="cursor:pointer;">Privacy Policy</a>
     </div>
     <div class="footer-col">
       <h5>Connect</h5>
-      <a href="mailto:enquiries@prestigecommercialconsultancy.co.uk" style="color:rgba(255,255,255,0.35);text-decoration:none;">enquiries@prestigecommercialconsultancy.co.uk</a>
+      <a href="mailto:hello@prestigecommercialconsultancy.co.uk" style="color:rgba(255,255,255,0.35);text-decoration:none;">hello@prestigecommercialconsultancy.co.uk</a>
       <div class="footer-social">
-        <a href="#" title="LinkedIn" aria-label="LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
-        <a href="#" title="Instagram" aria-label="Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
-        <a href="#" title="X" aria-label="X"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="[LINKEDIN_URL]" title="LinkedIn" aria-label="LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+        <a href="[INSTAGRAM_URL]" title="Instagram" aria-label="Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+        <a href="[X_URL]" title="X" aria-label="X"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
       </div>
     </div>
   </div>
@@ -1366,11 +1704,10 @@
     <p>&copy; 2026 Prestige Commercial Consulting Ltd. All rights reserved.</p>
     <p>Company No. 17059746 | Registered in England and Wales</p>
     <p>Registered Office: 128 City Road, London, EC1V 2NX</p>
-    <p>ICO Registration: [Pending]</p>
-    <p><a href="javascript:void(0)" onclick="navigateTo('privacy')" style="cursor:pointer;color:rgba(255,255,255,0.2);text-decoration:none;font-size:0.55rem;letter-spacing:1px;">Privacy Policy</a></p>
+    <p>ICO Registration: [ICO_REG_NUMBER]</p>
+    <p><a href="javascript:void(0)" onclick="navigateTo('privacy')" style="cursor:pointer;color:rgba(255,255,255,0.2);text-decoration:none;font-size:0.55rem;letter-spacing:1px;">Privacy Policy</a> &nbsp;|&nbsp; <a href="javascript:void(0)" onclick="navigateTo('terms')" style="cursor:pointer;color:rgba(255,255,255,0.2);text-decoration:none;font-size:0.55rem;letter-spacing:1px;">Terms of Use</a></p>
   </div>
 </footer>
-
 <script>
 // ===== SPA NAVIGATION =====
 let currentPage = 'home';
@@ -1383,7 +1720,9 @@ const pageTitles = {
   'training': 'Training & Development | Prestige Commercial Consulting',
   'insights': 'Insights & Articles | Prestige Commercial Consulting',
   'contact': 'Contact Us | Prestige Commercial Consulting',
-  'privacy': 'Privacy Policy | Prestige Commercial Consulting'
+  'privacy': 'Privacy Policy | Prestige Commercial Consulting',
+  'terms': 'Terms of Use | Prestige Commercial Consulting',
+  'toolkit': 'PCC Toolkit | Free Procurement Tools'
 };
 
 function navigateTo(page) {
@@ -1486,22 +1825,305 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Handle browser back/forward
 window.addEventListener('popstate', () => {
-  const hash = window.location.hash.replace('#', '') || 'home';
-  if (hash !== currentPage && document.getElementById('page-' + hash)) {
+  const hash = window.location.hash.replace('#', '');
+  if (hash && document.getElementById('page-' + hash)) {
     const currentEl = document.getElementById('page-' + currentPage);
-    currentEl.classList.remove('visible');
-    setTimeout(() => {
-      currentEl.classList.remove('active');
-      const newEl = document.getElementById('page-' + hash);
-      newEl.classList.add('active');
-      window.scrollTo(0, 0);
-      requestAnimationFrame(() => { requestAnimationFrame(() => { newEl.classList.add('visible'); }); });
-      currentPage = hash;
-      updateNav(hash);
-      document.title = pageTitles[hash] || 'Prestige Commercial Consulting';
-      setTimeout(initReveal, 100);
-    }, 300);
+    currentEl.classList.remove('active', 'visible');
+    const targetEl = document.getElementById('page-' + hash);
+    targetEl.classList.add('active');
+    requestAnimationFrame(() => { requestAnimationFrame(() => { targetEl.classList.add('visible'); }); });
+    currentPage = hash;
+    updateNav(hash);
+    document.title = pageTitles[hash] || 'Prestige Commercial Consulting';
   }
+});
+
+// ── TOOLKIT: TIMELINE BUILDER ────────────────────────────────
+function tkTimeline() {
+  const s = document.getElementById('tk-start').value;
+  const e = document.getElementById('tk-end').value;
+  const out = document.getElementById('tk-timeline-out');
+  if (!s || !e) { out.style.display='block'; out.innerHTML='<span style="color:#e07070;">Please select both dates.</span>'; return; }
+  const sD = new Date(s+'T00:00:00'), eD = new Date(e+'T00:00:00');
+  if (eD <= sD) { out.style.display='block'; out.innerHTML='<span style="color:#e07070;">Target date must be after start date.</span>'; return; }
+  const totalDays = Math.round((eD-sD)/86400000);
+  function addD(d,n){ const r=new Date(d); r.setDate(r.getDate()+n); return r.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
+  const milestones = [
+    {label:'Procurement Strategy Signed Off',day:0},
+    {label:'Specification Finalised',day:14},
+    {label:'Documents Approved (Legal / Finance)',day:21},
+    {label:'Tender Notice (UK4) Published on Find a Tender',day:28},
+    {label:'Clarification Deadline',day:51},
+    {label:'Submission Deadline (min. 25 days from notice)',day:53},
+    {label:'Evaluation Complete',day:67},
+    {label:'Assessment Summaries Issued to Tenderers',day:67},
+    {label:'Contract Award Notice (UK6) Published',day:68},
+    {label:'Standstill Period Ends (min. 8 working days)',day:79},
+    {label:'Contract Signature Target',day:80},
+  ];
+  const warn = totalDays < 91;
+  let html = '<div style="margin-bottom:1rem;font-size:0.68rem;color:rgba(255,255,255,0.4);">Total available days: <strong style="color:var(--gold);">'+totalDays+'</strong></div>';
+  milestones.forEach(m => {
+    const over = m.day > totalDays;
+    html += '<div class="tk-milestone"><span class="tk-milestone-label">'+m.label+'</span><span class="tk-milestone-date">'+addD(sD,m.day)+'</span>'+(over?'<span class="tk-milestone-flag">&#9888; Beyond target</span>':'')+'</div>';
+  });
+  if (warn) html += '<div style="margin-top:1rem;padding:10px 14px;background:rgba(224,112,112,0.08);border-left:2px solid #e07070;font-size:0.68rem;color:#e0a0a0;line-height:1.7;">&#9888;&nbsp; <strong>Timeline is tight.</strong> An Open Procedure typically requires around 80 days as an absolute minimum (25-day tender period, evaluation, and 8-working-day standstill). Allow more time for specification, approvals, and contingency. Consider whether a framework call-off is more suitable.</div>';
+  else html += '<div style="margin-top:1rem;padding:10px 14px;background:rgba(100,180,100,0.08);border-left:2px solid rgba(100,200,100,0.4);font-size:0.68rem;color:rgba(150,220,150,0.8);line-height:1.7;">&#10003;&nbsp; Timeline is achievable for an Open Procedure. Build contingency into evaluation, legal review, and contract finalisation stages. Remember to publish a UK7 Contract Details Notice within 30 days of signature.</div>';
+  out.style.display='block';
+  out.innerHTML=html;
+}
+
+// ── TOOLKIT: PROCEDURE SELECTOR ─────────────────────────────
+let tkProcAnswers = {};
+const tkProcResults = {
+  'framework':    {label:'Framework Call-Off',desc:'You are calling off an existing framework agreement. Use the mini-competition or direct award process specified in the framework terms. No UK4 Tender Notice is required. A UK6 Contract Award Notice must be published after the award decision and before the contract is signed, starting the mandatory standstill period. A UK7 Contract Details Notice must be published within 30 days of signature.'},
+  'below':        {label:'Below Threshold \u2014 Advertised or Direct Award',desc:'Your contract value is below the PA23 regulated thresholds. You still have obligations under your organisation\'s financial regulations and standing orders. A UK4 Tender Notice is required before advertising a notifiable below-threshold contract (above \u00a312k for central government, \u00a330k for all other authorities). A UK7 Contract Details Notice must be published after award. For very low values below the notifiable threshold, a direct award with documented rationale may be appropriate, but best practice is competitive quotes. Note: thresholds vary by authority type and contract category — verify your applicable threshold before proceeding.'},
+  'above-yes-yes':{label:'Competitive Flexible Procedure (with Participation Stage)',desc:'The Competitive Flexible Procedure is suitable where you want to shortlist suppliers, hold dialogue or negotiations, or run a multi-stage process. A participation stage allows you to assess suppliers before inviting tenders. Publish a UK4 Tender Notice inviting requests to participate. The minimum period for the participation stage is 25 days (reducible to 10 days in urgent cases or where a UK3 Planned Procurement Notice was published 40+ days earlier). Design your procedure stages clearly and document them in your procurement strategy before publishing.'},
+  'above-yes-no': {label:'Competitive Flexible Procedure (Open Field)',desc:'The Competitive Flexible Procedure with no shortlisting is suitable for complex or multi-stage procurements where all suppliers may submit. Consider publishing a UK2 Preliminary Market Engagement Notice first if you have engaged with suppliers in shaping the requirement. Publish a UK4 Tender Notice inviting tenders or requests to participate. The CFP gives you flexibility to include site visits, presentations, or clarification stages not available under the Open Procedure.'},
+  'above-no':     {label:'Open Procedure',desc:'The Open Procedure is the default regulated route under PA23. Any interested supplier may submit a tender. Publish a UK4 Tender Notice on Find a Tender. The normal minimum tendering period is 25 days where electronic submission is allowed and all tender documents are published with the notice. A UK6 Contract Award Notice must be published after award and before the contract is signed, starting the mandatory standstill of at least 8 working days. A UK7 Contract Details Notice must be published within 30 days of signature. Note: if your contract covers health, social care, or other light touch services (defined by CPV code), the Light Touch Regime (LTR) may apply instead — check the PA23 Schedule 2 exemptions and Part 7 provisions before proceeding.'},
+};
+
+function tkProc(q,ans) {
+  tkProcAnswers['q'+q]=ans;
+  if(q===1&&ans==='framework'){tkProcShow('framework');return;}
+  if(q===1&&ans==='below'){tkProcShow('below');return;}
+  if(q===1&&ans==='above'){document.getElementById('tk-pq2').style.display='block';return;}
+  if(q===2){if(ans==='no'){tkProcShow('above-no');return;}document.getElementById('tk-pq3').style.display='block';return;}
+  if(q===3){tkProcShow(ans==='yes'?'above-yes-yes':'above-yes-no');return;}
+}
+function tkProcShow(key) {
+  const r=tkProcResults[key];
+  document.getElementById('tk-proc-label').textContent=r.label;
+  document.getElementById('tk-proc-desc').textContent=r.desc;
+  document.getElementById('tk-proc-result').style.display='block';
+  ['tk-pq1','tk-pq2','tk-pq3'].forEach(id=>{document.getElementById(id).style.opacity='0.4';});
+}
+function tkProcReset() {
+  tkProcAnswers={};
+  ['tk-pq1','tk-pq2','tk-pq3'].forEach(id=>{
+    const el=document.getElementById(id);
+    el.style.display=id==='tk-pq1'?'block':'none';
+    el.style.opacity='1';
+  });
+  document.getElementById('tk-proc-result').style.display='none';
+}
+
+// ── TOOLKIT: GLOSSARY ────────────────────────────────────────
+const tkGlossTerms = [
+  {t:'Above Threshold',d:'A contract whose estimated value exceeds the PA23 financial thresholds, triggering the full regulated procurement regime.'},
+  {t:'Award Notice',d:'A notice published on Find a Tender following contract award, required under PA23. Also called a Contract Award Notice or UK6.'},
+  {t:'Below Threshold',d:'A contract whose value falls below the PA23 regulated thresholds. Your organisation\'s own financial regulations and standing orders apply.'},
+  {t:'Competitive Flexible Procedure (CFP)',d:'A PA23 procedure giving buyers flexibility to design a multi-stage process including negotiation and dialogue. Replaces Competitive Dialogue and the Negotiated Procedure.'},
+  {t:'Conflict of Interest',d:'A situation where a person involved in a procurement has a personal, financial, or professional interest that could compromise impartiality. Must be declared and managed under PA23.'},
+  {t:'Contract Change Notice (UK10)',d:'A PA23 notice required before making a regulated contract modification that changes the contract\'s value or term, or where the contract transfers due to corporate restructuring. Must be published on Find a Tender before the change takes effect. The contract numbering skips from UK7 to UK10 — UK8 and UK9 do not exist in the PA23 notice framework.'},
+  {t:'Debarment',d:'Exclusion of a supplier from a procurement. PA23 introduces mandatory and discretionary grounds for exclusion set out in Schedules 6 and 7.'},
+  {t:'Dynamic Market (DM)',d:'A PA23 mechanism replacing Dynamic Purchasing Systems. Suppliers can join at any time. Used for commonly purchased goods, works, or services.'},
+  {t:'Find a Tender (FTS)',d:'The UK\'s official public procurement portal, replacing the former OJEU/TED requirement after Brexit. Mandatory for above-threshold notices.'},
+  {t:'Framework Agreement',d:'An arrangement with one or more suppliers establishing terms for future contracts. Call-offs are made without re-opening full competition, subject to framework terms.'},
+  {t:'ITT',d:'Invitation to Tender. The formal document package inviting suppliers to submit a full tender, including specification, pricing schedule, and evaluation criteria.'},
+  {t:'KPI',d:'Key Performance Indicator. A measurable value used to assess supplier performance against contract objectives.'},
+  {t:'Modification',d:'A change to an existing contract. PA23 Section 74 sets out which modifications are permitted without triggering a new procurement.'},
+  {t:'Most Advantageous Tender (MAT)',d:'The PA23 replacement for Most Economically Advantageous Tender (MEAT). The basis on which award decisions must be made.'},
+  {t:'Open Procedure',d:'The default regulated procurement route under PA23. Any interested supplier may submit a tender. The normal minimum tendering period is 25 days from publication of the UK4 Tender Notice, where electronic submission is allowed and all documents are provided with the notice. 30 days applies if documents are not all published at notice stage. Shortlisting is not permitted.'},
+  {t:'PIN (Prior Information Notice)',d:'Legacy terminology from the Public Contracts Regulations 2015, no longer used under PA23. The equivalent functions are now split between two PA23 notices: the UK2 Preliminary Market Engagement Notice (published when pre-market engagement is carried out) and the UK3 Planned Procurement Notice (optional, used to reduce the minimum tender period). The term PIN is still encountered in practice when referring to procurements started before 24 February 2025.'},
+  {t:'Procurement Act 2023 (PA23)',d:'The primary legislation governing public procurement in the UK from 24 February 2025. Replaces the Public Contracts Regulations 2015 and related regulations.'},
+  {t:'Procurement Policy Note (PPN)',d:'Guidance issued by the Cabinet Office to public sector contracting authorities. PPNs may be mandatory or advisory.'},
+  {t:'Section 74',d:'The PA23 provision governing contract modifications. Sets out when changes can be made without a new procurement and what notices are required.'},
+  {t:'Standstill Period',d:'The mandatory waiting period of a minimum of 8 working days between issuing award notifications and signing the contract. Allows unsuccessful bidders to challenge the decision.'},
+  {t:'TUPE',d:'Transfer of Undertakings (Protection of Employment) Regulations 2006. Applies when a service transfers between providers, protecting the employment terms of affected staff.'},
+  {t:'Transparency Notice (UK5)',d:'A PA23 notice required before making a direct award — i.e. awarding without a competitive procedure. Must be published before the contract is entered into. Only in cases of genuine extreme urgency may it be published as soon as reasonably practicable after award. Triggers a mandatory standstill period of at least 8 working days in most cases.'},
+  {t:'VEAT (Voluntary Ex-Ante Transparency Notice)',d:'Legacy terminology from the Public Contracts Regulations 2015 (published as an F15 notice). Under PA23, the equivalent mechanism is the UK5 Transparency Notice, which is mandatory before direct awards and automatically triggers the standstill period. There is no separate voluntary ex-ante notice type in PA23 — the transparency and standstill functions are consolidated into UK5.'},
+  {t:'Assessment Summary',d:'A document that PA23 requires contracting authorities to provide to every tenderer before publishing a UK6 Contract Award Notice. It replaces the PCR 2015 standstill letter and must include the scores awarded, the reasons for the award decision, and the characteristics and advantages of the winning tender. It must be issued to all tenderers who submitted a compliant tender before the UK6 is published.'},
+  {t:'Direct Award',d:'Awarding a contract to a specific supplier without running a competitive tendering procedure. Under PA23, direct awards are only permitted in limited circumstances set out in the Act, including extreme urgency, only one capable supplier, and a small number of other defined grounds. A UK5 Transparency Notice must be published before the contract is signed in most cases.'},
+  {t:'Exclusion Grounds',d:'Grounds on which a supplier may or must be excluded from a procurement. PA23 sets out mandatory exclusion grounds (Schedule 6) — where suppliers must be excluded — and discretionary exclusion grounds (Schedule 7) — where contracting authorities may choose to exclude. This replaces the PCR 2015 mandatory and discretionary exclusion framework.'},
+  {t:'Light Touch Regime (LTR)',d:'A reduced-obligation procurement regime under PA23 applying to specific service categories — principally health, social care, and certain other services — defined by CPV code. The LTR threshold is £663,540 (inc. VAT) from 1 January 2026. Authorities have more flexibility over procedure design but must still comply with core PA23 transparency and notice requirements.'},
+  {t:'National Procurement Policy Statement (NPPS)',d:'A statement published by the Cabinet Office under PA23 setting out the government\'s procurement priorities. Contracting authorities must have regard to the NPPS when exercising their procurement functions. The current NPPS was published in February 2025 and emphasises value for money, economic growth, and social value objectives.'},
+  {t:'Open Framework',d:'A new framework type introduced by PA23. Unlike a traditional closed framework, an open framework must be reopened to new suppliers at least once within three years of establishment, and again within five years. Maximum duration is eight years. Open frameworks must be established using the open procedure or competitive flexible procedure — not by direct award.'},
+  {t:'Planned Procurement Notice (UK3)',d:'An optional PA23 notice published to give the market advance notice of a forthcoming procurement. If published between 40 days and one year before a linked UK4 Tender Notice, it reduces the minimum tendering period to 10 days for above-threshold procurements. Replaces the PCR 2015 PIN used as a call for competition. Unlike UK2, it does not require prior market engagement to have taken place.'},
+  {t:'Preliminary Market Engagement (PME)',d:'Pre-procurement engagement with the market carried out under Section 16 of PA23 to explore the market, gather intelligence, or test a specification. PME is permitted but must be conducted fairly and transparently. Where PME is carried out for an above-threshold contract, a UK2 Preliminary Market Engagement Notice must be published before the UK4 Tender Notice, or reasons for not doing so stated in the UK4.'},
+  {t:'Supplier Information Service (SIS)',d:'A new central digital platform introduced under PA23, operating alongside Find a Tender. Suppliers register once on SIS to provide standard information about their organisation — including exclusion grounds, financial standing, and equalities compliance — which can then be reused across multiple procurements without re-submitting the same information each time.'},
+];
+function tkGlossSearch() {
+  const q=(document.getElementById('tk-gloss-search').value||'').toLowerCase().trim();
+  const out=document.getElementById('tk-gloss-out');
+  const filtered=q?tkGlossTerms.filter(t=>t.t.toLowerCase().includes(q)||t.d.toLowerCase().includes(q)):tkGlossTerms;
+  if(!filtered.length){out.innerHTML='<p style="font-size:0.7rem;color:var(--slate);padding:8px;">No terms found.</p>';return;}
+  out.innerHTML=filtered.map(t=>'<div class="tk-gloss-term"><strong>'+t.t+'</strong><span>'+t.d+'</span></div>').join('');
+}
+
+// ── TOOLKIT: PA23 NOTICES ────────────────────────────────────
+const tkNotices = [
+  {
+    ref:'UK1',cat:'pre',
+    title:'Pipeline Notice',
+    when:'Mandatory for contracting authorities that expect to spend more than \u00a3100 million on relevant contracts in the upcoming financial year. Must be published between 1 April and 26 May each year, covering contracts over \u00a32 million expected to be procured in the 18 months from 1 April. Can also be used voluntarily for lower values or longer-range planning.',
+    purpose:'Provides the market with advance visibility of forthcoming procurements, enabling suppliers to plan resource and bid capacity. Also assists contracting authorities in co-ordinating their pipeline across categories.',
+    limits:'Not required for private utilities or where Northern Irish rules apply. Does not bind the contracting authority to proceed with any listed procurement. Cannot substitute for a UK4 Tender Notice.'
+  },
+  {
+    ref:'UK2',cat:'pre',
+    title:'Preliminary Market Engagement Notice',
+    when:'Must be published before a UK4 Tender Notice if preliminary market engagement has been carried out for an above-threshold contract. If no engagement was carried out, the reason must be stated in the UK4 Tender Notice instead. Can also be published voluntarily to signal that engagement is planned.',
+    purpose:'Informs the market how and when the contracting authority will be engaging with suppliers before launching the procurement. Supports transparency around pre-market activity and helps suppliers prepare for upcoming opportunities.',
+    limits:'Does not itself open competition or start any minimum period. Publication before engagement has occurred requires care \u2014 the notice should reflect actual engagement activity accurately.'
+  },
+  {
+    ref:'UK3',cat:'pre',
+    title:'Planned Procurement Notice',
+    when:'Voluntary. Can be published at any time to provide early information about an upcoming competitive procurement. If published between 40 days and 1 year before the linked UK4 Tender Notice, it reduces the minimum tendering period to 10 days for above-threshold procurements.',
+    purpose:'Gives the market advance notice of an upcoming tender, allowing suppliers to prepare bids and allocate resource. The primary commercial benefit is the ability to reduce the minimum tender period in time-pressured procurements.',
+    limits:'The 10-day reduced tender period only applies if the UK3 was published in the 40-day to 1-year window before the UK4. Does not bind the authority to proceed. Cannot be published after the linked UK4 Tender Notice.'
+  },
+  {
+    ref:'UK4',cat:'competition',
+    title:'Tender Notice',
+    when:'Mandatory for all above-threshold competitive procurements under the Open Procedure or Competitive Flexible Procedure, including when establishing frameworks or using dynamic markets. Also mandatory for notifiable below-threshold contracts before advertising elsewhere.',
+    purpose:'Opens the regulated competition by inviting suppliers to submit tenders or requests to participate. Must contain sufficient information for suppliers to prepare a tender, including requirements, evaluation criteria, and the tendering period.',
+    limits:'Normal minimum tendering period is 25 days for above-threshold where electronic submission is allowed and all documents are provided with the notice. Reducible to 10 days if a UK3 was published 40\u201312 months earlier, or in cases of urgency. Cannot be published after the submission deadline has passed \u2014 a new notice is required if major changes are needed.'
+  },
+  {
+    ref:'UK5',cat:'award',
+    title:'Transparency Notice (Direct Award)',
+    when:'Mandatory before making a direct award \u2014 i.e. awarding a contract without a competitive tendering procedure. Must be published before the contract is entered into. In cases of genuine extreme urgency, it may be published as soon as reasonably practicable after award.',
+    purpose:'Provides transparency over non-competitive awards, setting out the requirement, the intended supplier, the rationale for direct award, and the contract value. Triggers a standstill period of at least 8 working days in most cases, during which the award can be challenged before the contract is signed.',
+    limits:'A valid legal ground for direct award under the Act must exist before publishing. Grounds are limited and specific \u2014 they include extreme urgency, only one capable supplier, switching after an unsuccessful competitive procedure, and a small number of others. Publishing a UK5 without a valid ground does not legalise an unlawful award.'
+  },
+  {
+    ref:'UK6',cat:'award',
+    title:'Contract Award Notice',
+    when:'Mandatory following every above-threshold award decision, including competitive procedures, direct awards, framework call-offs, and dynamic market call-offs. Must be published after the award decision and before the contract is signed. Also published where some lots will not be awarded.',
+    purpose:'Notifies the market and all tenderers of the award outcome. Starts the mandatory standstill period of at least 8 working days before the contract can be signed, during which unsuccessful suppliers may challenge the decision. Assessment summaries must be sent to all tenderers before the UK6 is published.',
+    limits:'The contract must not be signed until the standstill period has expired and no challenge has been brought (or any challenge resolved). Not required for awards under a defence and security framework. Failure to publish before signing is a breach of the Act.'
+  },
+  {
+    ref:'UK7',cat:'award',
+    title:'Contract Details Notice',
+    when:'Mandatory after a contract has been entered into, both above and below threshold. Must be published within 30 days of signature for above-threshold contracts (or 120 days for light-touch contracts). A redacted copy of the contract must be attached within 90 days (180 days for light-touch) for contracts over \u00a35 million.',
+    purpose:'Creates a public record that the contract has been signed, including the contract subject matter, value, supplier, and duration. For contracts over \u00a35m, the published contract document provides further transparency over terms and KPIs.',
+    limits:'Not required for private utilities. Attaching the contract document is not required if Welsh or Northern Irish rules apply. The 30-day clock runs from contract signature, not from the end of the standstill period. Redaction of commercially sensitive material is permitted but must be justifiable.'
+  },
+  {
+    ref:'UK10',cat:'award',
+    title:'Contract Change Notice',
+    when:'Mandatory before changing a contract\u2019s value or term, or where the contract is transferred due to corporate restructuring. Must be published on Find a Tender before the modification takes effect. For contracts over \u00a35 million, the modified contract document must be attached within 90 days of the modification.',
+    purpose:'Provides transparency over contract modifications, including the nature of the change, the impact on contract value or duration, and why the modification falls within the permitted grounds under Section 74 of the Act.',
+    limits:'Must be published before the change takes effect \u2014 retrospective publication does not comply. Modifications outside the permitted Section 74 grounds constitute an unlawful new procurement. Not required for defence and security contracts, light-touch contracts, private utilities, or where Northern Irish rules apply.'
+  },
+  {
+    ref:'UK11',cat:'reporting',
+    title:'Contract Termination Notice',
+    when:'Mandatory after a contract has ended, including on successful completion. Must be published within 30 days of the contract ending.',
+    purpose:'Creates a public record that the contract has concluded, whether by completion, early termination, or mutual agreement. Provides lifecycle closure on the procurement record and informs the market that the contract is no longer active.',
+    limits:'Not required for private utilities. The 30-day deadline runs from the date the contract ends, not from any internal decision point. Where a contract is terminated early due to supplier breach, this notice works alongside the Contract Performance Notice obligations.'
+  },
+  {
+    ref:'UK12',cat:'reporting',
+    title:'Procurement Termination Notice',
+    when:'Mandatory if a procurement process is cancelled after a UK4 Tender Notice or UK5 Transparency Notice has been published and the contract will not be signed. Can cancel a whole procurement or a subset of contracts defined in a UK5 or UK6 but not yet signed.',
+    purpose:'Informs the market that the procurement will not proceed to award. Provides transparency for suppliers who have invested in bidding and allows them to understand why the process has been cancelled.',
+    limits:'Does not prevent the authority from re-running the procurement later, but a new UK4 Tender Notice would be required. Not required for private utilities. Reasons for cancellation should be clearly documented in the procurement record.'
+  },
+  {
+    ref:'UK13',cat:'competition',
+    title:'Dynamic Market Intention Notice',
+    when:'Mandatory before a dynamic market is established. Published to notify suppliers that they can apply to join the market. The contracting authority cannot use the market to award contracts until the UK14 Establishment Notice is published.',
+    purpose:'Opens the application window for suppliers wishing to join the dynamic market. Sets out the membership criteria, subject matter, and joining process. Allows the market to begin forming before the authority is ready to run call-offs.',
+    limits:'The authority cannot make any awards from the market until the UK14 is published. Membership conditions cannot be applied to below-threshold dynamic markets (except for certain works contracts, schools, or where Welsh or Northern Irish rules apply).'
+  },
+  {
+    ref:'UK14',cat:'competition',
+    title:'Dynamic Market Establishment Notice',
+    when:'Mandatory after a dynamic market has been established and is open for contracting authorities to use. Published to confirm which suppliers are part of the market and that call-off competitions can now begin.',
+    purpose:'Signals to contracting authorities that the market is live and available for use. Sets out the approved supplier list and the parameters under which call-offs will be run. Further suppliers can continue to apply to join after establishment.',
+    limits:'Call-offs from the market must use a competitive flexible procedure for above-threshold contracts. Direct award from a dynamic market is not permitted unless a specific PA23 direct award ground applies.'
+  },
+  {
+    ref:'UK15',cat:'competition',
+    title:'Dynamic Market Modification Notice',
+    when:'Published after a dynamic market is modified, including when suppliers are added to or removed from the market. Multiple UK15 notices will be published over the life of the market as membership changes.',
+    purpose:'Keeps the market record up to date and informs contracting authorities and suppliers of changes to membership or market parameters. Ensures transparency over who is and is not an approved market member at any point in time.',
+    limits:'Each modification to the market requires a separate notice. Retrospective modification notices are not compliant. Removal of suppliers must be based on documented grounds consistent with the original membership criteria.'
+  },
+  {
+    ref:'UK16',cat:'competition',
+    title:'Dynamic Market Cessation Notice',
+    when:'Mandatory after a dynamic market has ceased to operate. Published to confirm that the market is closed, contracting authorities can no longer use it, and suppliers cannot apply to join.',
+    purpose:'Provides a definitive public record that the dynamic market has ended. Informs contracting authorities to cease using the market for new call-offs and signals closure to the supplier community.',
+    limits:'Not required for private utilities. Any ongoing contracts awarded under the market before cessation continue until their own natural conclusion or termination. The cessation of the market does not automatically terminate existing call-off contracts.'
+  },
+  {
+    ref:'BT',cat:'reporting',
+    title:'Below-Threshold Contract Details Notice',
+    when:'Mandatory for all notifiable below-threshold contracts after the contract is entered into. A contract is notifiable if its value is at or above \u00a312,000 (inc. VAT) for central government authorities, or \u00a330,000 (inc. VAT) for all other contracting authorities. Must be published as soon as reasonably practicable after signature.',
+    purpose:'Provides transparency over lower-value public contracts that fall below the regulated thresholds. Creates a searchable public record on Find a Tender alongside above-threshold contracts, supporting the PA23 objective of openness across the full procurement lifecycle.',
+    limits:'Not required for concession contracts, utilities contracts, schools, or where Northern Irish rules apply. All other PA23 notice types (UK1\u2013UK16) can also be used for below-threshold contracts voluntarily, but only UK4 and UK7 are legally required for notifiable below-threshold contracts.'
+  },
+  {
+    ref:'PCN',cat:'reporting',
+    title:'Contract Performance Notice',
+    when:'Mandatory at least once per year for above-threshold contracts worth over \u00a35 million that include Key Performance Indicators (KPIs). Must also be published where a supplier has materially breached the contract, where a contract has been partially terminated, or where a settlement or damages award has resulted from a breach. Where breach leads to full contract termination, a UK11 Contract Termination Notice is also required.',
+    purpose:'Creates a public record of supplier performance against contractual KPIs, driving accountability and enabling other contracting authorities to make informed decisions when evaluating suppliers in future procurements. Poor performance records feed into the debarment register.',
+    limits:'The notice must be based on a documented, objective performance assessment process. The contracting authority must give the supplier a reasonable opportunity to respond before publication. Publishing an inaccurate or procedurally unfair performance notice risks legal challenge. Assessment categories are: Satisfactory, Approaching Target, Requires Improvement, and Inadequate.'
+  },
+  {
+    ref:'PAY',cat:'reporting',
+    title:'Payment Compliance Notice',
+    when:'Mandatory for all contracting authorities from 1 October 2025. Must be published on the Central Digital Platform within 30 days of the end of each 6-month reporting period (ending 31 March and 30 September each year). The notice must be approved by a director or equivalent senior officer before publication.',
+    purpose:'Provides transparency over how promptly the contracting authority pays its suppliers under public contracts, in compliance with the 30-day payment obligation under Section 68 of the Act. Supports the Act\u2019s objective of improving cash flow for suppliers, particularly SMEs.',
+    limits:'Applies to payments under public contracts, not all authority spending. The authority must maintain accurate payment records across all contracts for each reporting period. The notice must include the average payment days, the percentage of invoices paid within 30 days, and the senior officer\u2019s approval statement. Failure to publish is a breach of the Act.'
+  },
+];
+
+let tkNoticeActiveFilter = 'all';
+function tkNoticeFilter(filter) {
+  tkNoticeActiveFilter = filter;
+  document.querySelectorAll('#tk-notice-filters .tk-opt').forEach(btn => {
+    btn.classList.toggle('tk-nf-active', btn.dataset.filter === filter);
+  });
+  tkRenderNotices();
+}
+function tkRenderNotices() {
+  const out = document.getElementById('tk-notices-out');
+  if (!out) return;
+  const filtered = tkNoticeActiveFilter === 'all' ? tkNotices : tkNotices.filter(n => n.cat === tkNoticeActiveFilter);
+  out.innerHTML = filtered.map(n => {
+    const catLabel = {pre:'Pre-Procurement',competition:'Competition & Dynamic Markets',award:'Award & Post-Award',reporting:'Reporting & Lifecycle'}[n.cat]||n.cat;
+    return '<div class="tk-notice-card">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">'
+      +'<span class="tk-notice-ref">'+n.ref+'</span>'
+      +'<span class="tk-notice-cat">'+catLabel+'</span>'
+      +'</div>'
+      +'<strong class="tk-notice-title">'+n.title+'</strong>'
+      +'<div class="tk-notice-section"><span class="tk-notice-label">When required</span><p>'+n.when+'</p></div>'
+      +'<div class="tk-notice-section"><span class="tk-notice-label">Purpose</span><p>'+n.purpose+'</p></div>'
+      +'<div class="tk-notice-section"><span class="tk-notice-label">Key limitations</span><p>'+n.limits+'</p></div>'
+      +'</div>';
+  }).join('');
+}
+
+// ── TOOLKIT: EMAIL REGISTRATION ──────────────────────────────
+function tkRegister() {
+  const name = document.getElementById('tk-reg-name').value.trim();
+  const email = document.getElementById('tk-reg-email').value.trim();
+  const org = document.getElementById('tk-reg-org').value.trim();
+  if (!name || !email || !email.includes('@')) { alert('Please enter your name and a valid email address.'); return; }
+  fetch('/', {
+    method:'POST',
+    headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body:new URLSearchParams({'form-name':'toolkit-registration','name':name,'email':email,'organisation':org}).toString()
+  }).then(() => {
+    document.getElementById('tk-reg-form').style.display='none';
+    document.getElementById('tk-reg-success').style.display='block';
+  }).catch(() => {
+    document.getElementById('tk-reg-form').style.display='none';
+    document.getElementById('tk-reg-success').style.display='block';
+  });
+}
+
+// Init on page load
+document.addEventListener('DOMContentLoaded', function() {
+  tkGlossSearch();
+  tkRenderNotices();
 });
 </script>
 </body>
